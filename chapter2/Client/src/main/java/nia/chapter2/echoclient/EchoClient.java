@@ -7,7 +7,6 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-
 import java.net.InetSocketAddress;
 
 /**
@@ -16,6 +15,7 @@ import java.net.InetSocketAddress;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class EchoClient {
+
     private final String host;
     private final int port;
 
@@ -37,7 +37,7 @@ public class EchoClient {
                     public void initChannel(SocketChannel ch)
                         throws Exception {
                         ch.pipeline().addLast(
-                             new EchoClientHandler());
+                            new EchoClientHandler());
                     }
                 });
             ChannelFuture f = b.connect().sync();
@@ -48,10 +48,10 @@ public class EchoClient {
     }
 
     public static void main(String[] args)
-            throws Exception {
+        throws Exception {
         if (args.length != 2) {
             System.err.println("Usage: " + EchoClient.class.getSimpleName() +
-                    " <host> <port>"
+                " <host> <port>"
             );
             return;
         }

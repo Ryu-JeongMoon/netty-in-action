@@ -17,6 +17,7 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class WebSocketServerInitializer extends ChannelInitializer<Channel> {
+
     @Override
     protected void initChannel(Channel ch) throws Exception {
         ch.pipeline().addLast(
@@ -30,6 +31,7 @@ public class WebSocketServerInitializer extends ChannelInitializer<Channel> {
 
     public static final class TextFrameHandler extends
         SimpleChannelInboundHandler<TextWebSocketFrame> {
+
         @Override
         public void channelRead0(ChannelHandlerContext ctx,
             TextWebSocketFrame msg) throws Exception {
@@ -39,6 +41,7 @@ public class WebSocketServerInitializer extends ChannelInitializer<Channel> {
 
     public static final class BinaryFrameHandler extends
         SimpleChannelInboundHandler<BinaryWebSocketFrame> {
+
         @Override
         public void channelRead0(ChannelHandlerContext ctx,
             BinaryWebSocketFrame msg) throws Exception {
@@ -48,6 +51,7 @@ public class WebSocketServerInitializer extends ChannelInitializer<Channel> {
 
     public static final class ContinuationFrameHandler extends
         SimpleChannelInboundHandler<ContinuationWebSocketFrame> {
+
         @Override
         public void channelRead0(ChannelHandlerContext ctx,
             ContinuationWebSocketFrame msg) throws Exception {

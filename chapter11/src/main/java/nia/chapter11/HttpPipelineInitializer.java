@@ -15,6 +15,7 @@ import io.netty.handler.codec.http.HttpResponseEncoder;
  */
 
 public class HttpPipelineInitializer extends ChannelInitializer<Channel> {
+
     private final boolean client;
 
     public HttpPipelineInitializer(boolean client) {

@@ -13,6 +13,7 @@ import io.netty.handler.codec.http.HttpServerCodec;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class HttpAggregatorInitializer extends ChannelInitializer<Channel> {
+
     private final boolean isClient;
 
     public HttpAggregatorInitializer(boolean isClient) {
@@ -28,6 +29,6 @@ public class HttpAggregatorInitializer extends ChannelInitializer<Channel> {
             pipeline.addLast("codec", new HttpServerCodec());
         }
         pipeline.addLast("aggregator",
-                new HttpObjectAggregator(512 * 1024));
+            new HttpObjectAggregator(512 * 1024));
     }
 }

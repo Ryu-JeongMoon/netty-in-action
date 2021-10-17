@@ -8,6 +8,7 @@ import java.net.InetSocketAddress;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public final class LogEvent {
+
     public static final byte SEPARATOR = (byte) ':';
     private final InetSocketAddress source;
     private final String logfile;

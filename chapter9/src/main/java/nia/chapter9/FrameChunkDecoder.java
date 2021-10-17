@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.TooLongFrameException;
-
 import java.util.List;
 
 /**
@@ -13,6 +12,7 @@ import java.util.List;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class FrameChunkDecoder extends ByteToMessageDecoder {
+
     private final int maxFrameSize;
 
     public FrameChunkDecoder(int maxFrameSize) {

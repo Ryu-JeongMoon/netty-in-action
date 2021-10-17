@@ -1,11 +1,14 @@
 package nia.chapter11;
 
-import io.netty.channel.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.marshalling.MarshallerProvider;
 import io.netty.handler.codec.marshalling.MarshallingDecoder;
 import io.netty.handler.codec.marshalling.MarshallingEncoder;
 import io.netty.handler.codec.marshalling.UnmarshallerProvider;
-
 import java.io.Serializable;
 
 /**
@@ -14,12 +17,13 @@ import java.io.Serializable;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class MarshallingInitializer extends ChannelInitializer<Channel> {
+
     private final MarshallerProvider marshallerProvider;
     private final UnmarshallerProvider unmarshallerProvider;
 
     public MarshallingInitializer(
-            UnmarshallerProvider unmarshallerProvider,
-            MarshallerProvider marshallerProvider) {
+        UnmarshallerProvider unmarshallerProvider,
+        MarshallerProvider marshallerProvider) {
         this.marshallerProvider = marshallerProvider;
         this.unmarshallerProvider = unmarshallerProvider;
     }
@@ -34,6 +38,7 @@ public class MarshallingInitializer extends ChannelInitializer<Channel> {
 
     public static final class ObjectHandler
         extends SimpleChannelInboundHandler<Serializable> {
+
         @Override
         public void channelRead0(
             ChannelHandlerContext channelHandlerContext,

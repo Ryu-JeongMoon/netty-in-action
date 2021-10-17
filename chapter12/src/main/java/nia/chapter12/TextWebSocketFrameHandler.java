@@ -13,6 +13,7 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
  */
 public class TextWebSocketFrameHandler
     extends SimpleChannelInboundHandler<TextWebSocketFrame> {
+
     private final ChannelGroup group;
 
     public TextWebSocketFrameHandler(ChannelGroup group) {
@@ -23,10 +24,10 @@ public class TextWebSocketFrameHandler
     public void userEventTriggered(ChannelHandlerContext ctx,
         Object evt) throws Exception {
         if (evt == WebSocketServerProtocolHandler
-             .ServerHandshakeStateEvent.HANDSHAKE_COMPLETE) {
+            .ServerHandshakeStateEvent.HANDSHAKE_COMPLETE) {
             ctx.pipeline().remove(HttpRequestHandler.class);
             group.writeAndFlush(new TextWebSocketFrame(
-                    "Client " + ctx.channel() + " joined"));
+                "Client " + ctx.channel() + " joined"));
             group.add(ctx.channel());
         } else {
             super.userEventTriggered(ctx, evt);

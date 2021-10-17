@@ -1,12 +1,15 @@
 package nia.test.chapter9;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.embedded.EmbeddedChannel;
 import nia.chapter9.FixedLengthFrameDecoder;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Listing 9.2 Testing the FixedLengthFrameDecoder
@@ -14,6 +17,7 @@ import static org.junit.Assert.*;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class FixedLengthFrameDecoderTest {
+
     @Test
     public void testFramesDecoded() {
         ByteBuf buf = Unpooled.buffer();

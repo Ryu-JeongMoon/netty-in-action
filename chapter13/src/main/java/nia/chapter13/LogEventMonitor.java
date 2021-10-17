@@ -1,10 +1,13 @@
 package nia.chapter13;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioDatagramChannel;
-
 import java.net.InetSocketAddress;
 
 /**
@@ -13,6 +16,7 @@ import java.net.InetSocketAddress;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class LogEventMonitor {
+
     private final EventLoopGroup group;
     private final Bootstrap bootstrap;
 
@@ -22,7 +26,7 @@ public class LogEventMonitor {
         bootstrap.group(group)
             .channel(NioDatagramChannel.class)
             .option(ChannelOption.SO_BROADCAST, true)
-            .handler( new ChannelInitializer<Channel>() {
+            .handler(new ChannelInitializer<Channel>() {
                 @Override
                 protected void initChannel(Channel channel)
                     throws Exception {
@@ -30,7 +34,7 @@ public class LogEventMonitor {
                     pipeline.addLast(new LogEventDecoder());
                     pipeline.addLast(new LogEventHandler());
                 }
-            } )
+            })
             .localAddress(address);
     }
 
@@ -45,7 +49,7 @@ public class LogEventMonitor {
     public static void main(String[] args) throws Exception {
         if (args.length != 1) {
             throw new IllegalArgumentException(
-            "Usage: LogEventMonitor <port>");
+                "Usage: LogEventMonitor <port>");
         }
         LogEventMonitor monitor = new LogEventMonitor(
             new InetSocketAddress(Integer.parseInt(args[0])));

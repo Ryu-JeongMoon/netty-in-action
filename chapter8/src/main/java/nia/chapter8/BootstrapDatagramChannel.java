@@ -8,7 +8,6 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.oio.OioEventLoopGroup;
 import io.netty.channel.socket.DatagramPacket;
 import io.netty.channel.socket.oio.OioDatagramChannel;
-
 import java.net.InetSocketAddress;
 
 /**
@@ -38,13 +37,13 @@ public class BootstrapDatagramChannel {
         future.addListener(new ChannelFutureListener() {
             @Override
             public void operationComplete(ChannelFuture channelFuture)
-               throws Exception {
-               if (channelFuture.isSuccess()) {
-                   System.out.println("Channel bound");
-               } else {
-                   System.err.println("Bind attempt failed");
-                   channelFuture.cause().printStackTrace();
-               }
+                throws Exception {
+                if (channelFuture.isSuccess()) {
+                    System.out.println("Channel bound");
+                } else {
+                    System.err.println("Bind attempt failed");
+                    channelFuture.cause().printStackTrace();
+                }
             }
         });
     }

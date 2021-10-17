@@ -1,12 +1,13 @@
 package nia.test.chapter9;
 
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.embedded.EmbeddedChannel;
 import nia.chapter9.AbsIntegerEncoder;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Listing 9.4 Testing the AbsIntegerEncoder
@@ -14,6 +15,7 @@ import static org.junit.Assert.*;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class AbsIntegerEncoderTest {
+
     @Test
     public void testEncoded() {
         ByteBuf buf = Unpooled.buffer();

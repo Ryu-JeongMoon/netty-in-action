@@ -1,7 +1,11 @@
 package nia.chapter11;
 
 import com.google.protobuf.MessageLite;
-import io.netty.channel.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
@@ -12,6 +16,7 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class ProtoBufInitializer extends ChannelInitializer<Channel> {
+
     private final MessageLite lite;
 
     public ProtoBufInitializer(MessageLite lite) {
@@ -29,6 +34,7 @@ public class ProtoBufInitializer extends ChannelInitializer<Channel> {
 
     public static final class ObjectHandler
         extends SimpleChannelInboundHandler<Object> {
+
         @Override
         public void channelRead0(ChannelHandlerContext ctx, Object msg)
             throws Exception {

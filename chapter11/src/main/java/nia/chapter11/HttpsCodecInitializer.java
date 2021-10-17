@@ -7,7 +7,6 @@ import io.netty.handler.codec.http.HttpClientCodec;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslHandler;
-
 import javax.net.ssl.SSLEngine;
 
 /**
@@ -16,6 +15,7 @@ import javax.net.ssl.SSLEngine;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class HttpsCodecInitializer extends ChannelInitializer<Channel> {
+
     private final SslContext context;
     private final boolean isClient;
 

@@ -10,11 +10,14 @@ import io.netty.channel.ChannelHandlerContext;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class WriteHandler extends ChannelHandlerAdapter {
+
     private ChannelHandlerContext ctx;
+
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) {
         this.ctx = ctx;
     }
+
     public void send(String msg) {
         ctx.writeAndFlush(msg);
     }

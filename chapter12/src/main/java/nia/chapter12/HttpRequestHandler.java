@@ -1,10 +1,21 @@
 package nia.chapter12;
 
-import io.netty.channel.*;
-import io.netty.handler.codec.http.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.DefaultFileRegion;
+import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.handler.codec.http.DefaultFullHttpResponse;
+import io.netty.handler.codec.http.DefaultHttpResponse;
+import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.FullHttpResponse;
+import io.netty.handler.codec.http.HttpHeaders;
+import io.netty.handler.codec.http.HttpResponse;
+import io.netty.handler.codec.http.HttpResponseStatus;
+import io.netty.handler.codec.http.HttpVersion;
+import io.netty.handler.codec.http.LastHttpContent;
 import io.netty.handler.ssl.SslHandler;
 import io.netty.handler.stream.ChunkedNioFile;
-
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.net.URISyntaxException;
@@ -16,20 +27,21 @@ import java.net.URL;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
+
     private final String wsUri;
     private static final File INDEX;
 
     static {
         URL location = HttpRequestHandler.class
-             .getProtectionDomain()
-             .getCodeSource().getLocation();
+            .getProtectionDomain()
+            .getCodeSource().getLocation();
         try {
             String path = location.toURI() + "index.html";
             path = !path.contains("file:") ? path : path.substring(5);
             INDEX = new File(path);
         } catch (URISyntaxException e) {
             throw new IllegalStateException(
-                 "Unable to locate index.html", e);
+                "Unable to locate index.html", e);
         }
     }
 
@@ -56,7 +68,7 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
             if (keepAlive) {
                 response.headers().set(
                     HttpHeaders.Names.CONTENT_LENGTH, file.length());
-                response.headers().set( HttpHeaders.Names.CONNECTION,
+                response.headers().set(HttpHeaders.Names.CONNECTION,
                     HttpHeaders.Values.KEEP_ALIVE);
             }
             ctx.write(response);
@@ -79,6 +91,7 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
             HttpVersion.HTTP_1_1, HttpResponseStatus.CONTINUE);
         ctx.writeAndFlush(response);
     }
+
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
         throws Exception {

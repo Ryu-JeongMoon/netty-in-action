@@ -9,7 +9,6 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.AttributeKey;
-
 import java.net.InetSocketAddress;
 
 /**
@@ -21,7 +20,7 @@ public class BootstrapClientWithOptionsAndAttrs {
 
     /**
      * Listing 8.7 Using attributes
-     * */
+     */
     public void bootstrap() {
         final AttributeKey<Integer> id = AttributeKey.newInstance("ID");
         Bootstrap bootstrap = new Bootstrap();

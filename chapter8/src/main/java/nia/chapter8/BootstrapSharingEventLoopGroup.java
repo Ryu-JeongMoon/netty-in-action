@@ -10,7 +10,6 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-
 import java.net.InetSocketAddress;
 
 /**
@@ -23,7 +22,7 @@ public class BootstrapSharingEventLoopGroup {
 
     /**
      * Listing 8.5 Bootstrapping a server
-     * */
+     */
     public void bootstrap() {
         ServerBootstrap bootstrap = new ServerBootstrap();
         bootstrap.group(new NioEventLoopGroup(), new NioEventLoopGroup())
@@ -31,6 +30,7 @@ public class BootstrapSharingEventLoopGroup {
             .childHandler(
                 new SimpleChannelInboundHandler<ByteBuf>() {
                     ChannelFuture connectFuture;
+
                     @Override
                     public void channelActive(ChannelHandlerContext ctx)
                         throws Exception {
@@ -52,7 +52,7 @@ public class BootstrapSharingEventLoopGroup {
                     @Override
                     protected void channelRead0(
                         ChannelHandlerContext channelHandlerContext,
-                            ByteBuf byteBuf) throws Exception {
+                        ByteBuf byteBuf) throws Exception {
                         if (connectFuture.isDone()) {
                             // do something with the data
                         }

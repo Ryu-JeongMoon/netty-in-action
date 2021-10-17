@@ -14,6 +14,7 @@ import io.netty.handler.codec.http.HttpServerCodec;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class HttpCompressionInitializer extends ChannelInitializer<Channel> {
+
     private final boolean isClient;
 
     public HttpCompressionInitializer(boolean isClient) {
@@ -26,11 +27,11 @@ public class HttpCompressionInitializer extends ChannelInitializer<Channel> {
         if (isClient) {
             pipeline.addLast("codec", new HttpClientCodec());
             pipeline.addLast("decompressor",
-            new HttpContentDecompressor());
+                new HttpContentDecompressor());
         } else {
             pipeline.addLast("codec", new HttpServerCodec());
             pipeline.addLast("compressor",
-            new HttpContentCompressor());
+                new HttpContentCompressor());
         }
     }
 }

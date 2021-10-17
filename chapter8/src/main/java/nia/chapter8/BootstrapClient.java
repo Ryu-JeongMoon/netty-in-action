@@ -2,10 +2,13 @@ package nia.chapter8;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-
 import java.net.InetSocketAddress;
 
 /**
@@ -15,6 +18,7 @@ import java.net.InetSocketAddress;
  * @author <a href="mailto:mawolfthal@gmail.com">Marvin Wolfthal</a>
  */
 public class BootstrapClient {
+
     public static void main(String args[]) {
         BootstrapClient client = new BootstrapClient();
         client.bootstrap();
@@ -22,7 +26,7 @@ public class BootstrapClient {
 
     /**
      * Listing 8.1 Bootstrapping a client
-     * */
+     */
     public void bootstrap() {
         EventLoopGroup group = new NioEventLoopGroup();
         Bootstrap bootstrap = new Bootstrap();
@@ -35,10 +39,10 @@ public class BootstrapClient {
                     ByteBuf byteBuf) throws Exception {
                     System.out.println("Received data");
                 }
-                });
+            });
         ChannelFuture future =
             bootstrap.connect(
-                    new InetSocketAddress("www.manning.com", 80));
+                new InetSocketAddress("www.manning.com", 80));
         future.addListener(new ChannelFutureListener() {
             @Override
             public void operationComplete(ChannelFuture channelFuture)
