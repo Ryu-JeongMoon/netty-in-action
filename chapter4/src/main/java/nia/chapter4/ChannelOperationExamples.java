@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.CharsetUtil;
 import java.util.concurrent.Executor;
@@ -28,9 +27,21 @@ public class ChannelOperationExamples {
         Channel channel = CHANNEL_FROM_SOMEWHERE; // Get the channel reference from somewhere
         ByteBuf buf = Unpooled.copiedBuffer("your data", CharsetUtil.UTF_8);
         ChannelFuture cf = channel.writeAndFlush(buf);
-        cf.addListener(new ChannelFutureListener() {
-            @Override
-            public void operationComplete(ChannelFuture future) {
+
+//        cf.addListener(new ChannelFutureListener() {
+//            @Override
+//            public void operationComplete(ChannelFuture future) {
+//                if (future.isSuccess()) {
+//                    System.out.println("Write successful");
+//                } else {
+//                    System.err.println("Write error");
+//                    future.cause().printStackTrace();
+//                }
+//            }
+//        });
+
+        // use lambda
+        cf.addListener(future -> {
                 if (future.isSuccess()) {
                     System.out.println("Write successful");
                 } else {
@@ -38,7 +49,7 @@ public class ChannelOperationExamples {
                     future.cause().printStackTrace();
                 }
             }
-        });
+        );
     }
 
     /**
@@ -46,14 +57,18 @@ public class ChannelOperationExamples {
      */
     public static void writingToChannelFromManyThreads() {
         final Channel channel = CHANNEL_FROM_SOMEWHERE; // Get the channel reference from somewhere
-        final ByteBuf buf = Unpooled.copiedBuffer("your data",
-            CharsetUtil.UTF_8);
-        Runnable writer = new Runnable() {
-            @Override
-            public void run() {
-                channel.write(buf.duplicate());
-            }
-        };
+        final ByteBuf buf = Unpooled.copiedBuffer("your data", CharsetUtil.UTF_8);
+
+//        Runnable writer = new Runnable() {
+//            @Override
+//            public void run() {
+//                channel.write(buf.duplicate());
+//            }
+//        };
+
+        // use lambda
+        Runnable writer = () -> channel.write(buf.duplicate());
+
         Executor executor = Executors.newCachedThreadPool();
 
         // write in one thread
